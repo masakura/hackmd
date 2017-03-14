@@ -49,6 +49,7 @@ var updateOwner = extra.updateOwner;
 var parseMeta = extra.parseMeta;
 var exportToHTML = extra.exportToHTML;
 var exportToRawHTML = extra.exportToRawHTML;
+var removeDOMEvents = extra.removeDOMEvents;
 
 var syncScroll = require('./syncscroll');
 var setupSyncAreas = syncScroll.setupSyncAreas;
@@ -3455,6 +3456,7 @@ function updateViewInner() {
             updateDataAttrs(result, ui.area.markdown.children().toArray());
         lastResult = $(result).clone();
     }
+    removeDOMEvents(ui.area.markdown);
     finishView(ui.area.markdown);
     autoLinkify(ui.area.markdown);
     deduplicatedHeaderId(ui.area.markdown);

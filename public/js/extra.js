@@ -537,6 +537,19 @@ function postProcess(code) {
 }
 window.postProcess = postProcess;
 
+var domevents = Object.getOwnPropertyNames(document).concat(Object.getOwnPropertyNames(Object.getPrototypeOf(Object.getPrototypeOf(document)))).concat(Object.getOwnPropertyNames(Object.getPrototypeOf(window))).filter(function (i) {
+  return !i.indexOf('on') && (document[i] === null || typeof document[i] === 'function')
+}).filter(function (elem, pos, self) {
+  return self.indexOf(elem) === pos
+})
+
+function removeDOMEvents (view) {
+  for (var i = 0, l = domevents.length; i < l; i++) {
+    view.find('[' + domevents[i] + ']').removeAttr(domevents[i])
+  }
+}
+window.removeDOMEvents = removeDOMEvents
+
 function generateCleanHTML(view) {
     var src = view.clone();
     var eles = src.find('*');
@@ -1142,6 +1155,7 @@ module.exports = {
   md: md,
   updateLastChange: updateLastChange,
   postProcess: postProcess,
+  removeDOMEvents: removeDOMEvents,
   finishView: finishView,
   autoLinkify: autoLinkify,
   deduplicatedHeaderId: deduplicatedHeaderId,

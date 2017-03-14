@@ -4,6 +4,7 @@ require('../css/site.css');
 var extraModule = require('./extra');
 var md = extraModule.md;
 var updateLastChange = extraModule.updateLastChange;
+var removeDOMEvents = extraModule.removeDOMEvents;
 var finishView = extraModule.finishView;
 
 var preventXSS = require('./render').preventXSS;
@@ -110,6 +111,7 @@ function renderSlide(event) {
     if (window.location.search.match( /print-pdf/gi )) {
         var slides = $('.slides');
         var title = document.title;
+        removeDOMEvents(slides);
         finishView(slides);
         document.title = title;
         Reveal.layout();
@@ -117,6 +119,7 @@ function renderSlide(event) {
         var markdown = $(event.currentSlide);
         if (!markdown.attr('data-rendered')) {
             var title = document.title;
+            removeDOMEvents(markdown);
             finishView(markdown);
             markdown.attr('data-rendered', 'true');
             document.title = title;

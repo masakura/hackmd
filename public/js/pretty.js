@@ -9,6 +9,7 @@ var md = extra.md;
 var finishView = extra.finishView;
 var autoLinkify = extra.autoLinkify;
 var deduplicatedHeaderId = extra.deduplicatedHeaderId;
+var removeDOMEvents = extra.removeDOMEvents;
 var renderTOC = extra.renderTOC;
 var generateToc = extra.generateToc;
 var smoothHashScroll = extra.smoothHashScroll;
@@ -50,6 +51,7 @@ if (md.meta.type && md.meta.type === 'slide') {
     markdown.html(result.html());
 }
 $(document.body).show();
+removeDOMEvents(markdown);
 finishView(markdown);
 autoLinkify(markdown);
 deduplicatedHeaderId(markdown);
